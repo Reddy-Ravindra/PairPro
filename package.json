@@ -1,0 +1,21 @@
+{
+  "name": "pairpro-server",
+  "version": "1.0.0",
+  "description": "A fullstack backend focused application for developers to connect over internet",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "NodeJs",
+    "MongoDB",
+    "Mongoose",
+    "ReactJs"
+  ],
+  "author": "Ravindra Reddy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
