@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
@@ -73,5 +75,26 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Use normal function while making up these things, dont use arrow functions
+userSchema.methods.getJWTToken = async function () {
+    const user = this; // this refers to the instance of the User model (the new users are instances of user model)
+
+
+    const token = await jwt.sign({ _id: user._id }, "PairPro@800855$", {
+        expiresIn: "1d",
+    });
+    
+    return token;
+}
+
+userSchema.methods.validatePassword = async function (passwordInputByUser) {
+    const user = this;
+    const passwordHash = user.password; // const passwordHash = this.password;
+
+    const isPasswordValid = await bcrypt.compare(passwordInputByUser, passwordHash);
+
+    return isPasswordValid;
+}
 
 module.exports = mongoose.model("User", userSchema);
